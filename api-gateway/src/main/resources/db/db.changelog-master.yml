@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - preConditions:
+      - onFail: HALT
+      - dbms:
+          type: postgresql
+  - includeAll:
+      path: classpath:/db/changelog/

@@ -1,0 +1,19 @@
+plugins {
+    alias(libs.plugins.spring)
+}
+
+dependencies {
+    implementation project(":common")
+    implementation libs.spring.data.jpa
+    implementation libs.spring.security
+    implementation libs.spring.websocket
+    implementation libs.spring.kafka
+
+    implementation libs.postgresql.driver
+    implementation libs.javax.annotation
+    implementation libs.jwt.api
+    implementation libs.jwt.impl
+    implementation libs.jwt.jackson
+
+    implementation libs.spring.thymeleaf
+}

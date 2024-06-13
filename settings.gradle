@@ -1,0 +1,6 @@
+rootProject.name = 'IncidentsTrackerBackend'
+
+include 'api-gateway'
+include 'location-tracker'
+include 'common'
+

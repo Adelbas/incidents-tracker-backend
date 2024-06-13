@@ -1,0 +1,13 @@
+plugins {
+    alias(libs.plugins.spring)
+}
+
+dependencies {
+    implementation project(":common")
+    implementation libs.spring.data.jpa
+    implementation libs.spring.kafka
+
+    implementation libs.postgresql.driver
+    implementation libs.javax.annotation
+    implementation libs.hibernate.spatial
+}
