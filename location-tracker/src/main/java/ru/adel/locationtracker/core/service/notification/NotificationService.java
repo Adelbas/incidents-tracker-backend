@@ -30,7 +30,7 @@ public class NotificationService {
                             .title(incident.title())
                             .longitude(incident.longitude())
                             .latitude(incident.latitude())
-                            .timestamp(LocalDateTime.now())
+                            .timestamp(incident.createdAt())
                             .build()
             );
         }
@@ -48,7 +48,7 @@ public class NotificationService {
                     .title(incident.title())
                     .longitude(incident.longitude())
                     .latitude(incident.latitude())
-                    .timestamp(LocalDateTime.now())
+                    .timestamp(incident.createdAt())
                     .build());
         }
         incidentUserInteractionDbService.updateToNotified(

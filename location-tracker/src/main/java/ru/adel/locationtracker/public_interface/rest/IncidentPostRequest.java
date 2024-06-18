@@ -9,5 +9,6 @@ public record IncidentPostRequest(
         UUID postedUserId,
         String title,
         Double latitude,
-        Double longitude
+        Double longitude,
+        byte[] image
 ) { }

@@ -1,12 +1,9 @@
-package ru.adel.locationtracker.public_interface.rest;
-
-import lombok.Builder;
+package ru.adel.apigateway.core.service.incident.client.dto;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Builder
-public record IncidentGetResponse (
+public record IncidentResponse(
         Long id,
         String title,
         UUID postedUserId,

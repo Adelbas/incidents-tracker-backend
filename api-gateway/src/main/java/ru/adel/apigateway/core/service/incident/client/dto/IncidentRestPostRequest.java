@@ -1,4 +1,4 @@
-package ru.adel.apigateway.core.service.incident.client;
+package ru.adel.apigateway.core.service.incident.client.dto;
 
 import lombok.Builder;
 
@@ -9,5 +9,6 @@ public record IncidentRestPostRequest(
         UUID postedUserId,
         String title,
         Double latitude,
-        Double longitude
+        Double longitude,
+        byte[] image
 ) { }

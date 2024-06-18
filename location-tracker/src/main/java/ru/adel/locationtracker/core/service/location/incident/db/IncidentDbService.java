@@ -8,7 +8,6 @@ import ru.adel.locationtracker.core.service.location.incident.db.entity.Incident
 import ru.adel.locationtracker.public_interface.exception.IncidentNotFoundException;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,8 +29,8 @@ public class IncidentDbService {
         return incidentRepository.save(incident);
     }
 
-    public Incident getById(Long id) {
-        return incidentRepository.findById(id)
+    public Incident getByIdAndDate(Long id, LocalDate date) {
+        return incidentRepository.findByCreatedAtDateAndId(date, id)
                 .orElseThrow(() -> new IncidentNotFoundException("Incident not found with id " + id));
     }
 

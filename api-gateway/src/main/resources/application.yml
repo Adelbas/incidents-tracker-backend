@@ -1,31 +1,27 @@
 server:
-#  port: ${SERVER_PORT}
-  port: 8080
+  port: ${SERVER_PORT}
 spring:
   liquibase:
-#    enabled: false
       change-log: classpath:/db/db.changelog-master.yml
   datasource:
-#    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/incidents_db_dev
-    username: postgres
-    password: postgres
-#    url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?currentSchema=${DB_SCHEMA}"
-#    username: ${DATASOURCE_USERNAME}
-#    password: ${DATASOURCE_PASSWORD}
-#  jpa:
-#    hibernate:
-#      ddl-auto: create-drop
+    driver-class-name: org.postgresql.Driver
+    url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?currentSchema=${DB_SCHEMA}"
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
   kafka:
-#    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
 kafka:
   producer:
     user-location:
       topic: "v1.user-location"
+      partitions: 2
+      replicas: 2
     user-interaction:
       topic: "v1.user-interaction"
+      partitions: 2
+      replicas: 2
   consumer:
-#    group-id: ${KAFKA_CONSUMER_GROUP_ID}
+    group-id: ${KAFKA_CONSUMER_GROUP_ID}
     notification-message:
       topic: "v1.notification-message"
 jwt:
@@ -38,7 +34,5 @@ api:
   client:
     incident:
       rest:
-#        host: ${LOCATION_TRACKER_HOST}
-#        port: ${LOCATION_TRACKER_PORT}
-        host: string
-        port: 8080
+        host: ${LOCATION_TRACKER_HOST}
+        port: ${LOCATION_TRACKER_PORT}

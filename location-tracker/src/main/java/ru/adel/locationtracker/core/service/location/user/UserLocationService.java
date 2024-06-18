@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.adel.locationtracker.core.service.location.user.db.UserLocationDbService;
 import ru.adel.locationtracker.core.service.location.user.db.entity.UserLocation;
+import ru.adel.locationtracker.public_interface.event.dto.NotificationDistanceUpdateRequest;
 import ru.adel.locationtracker.public_interface.event.dto.UserLocationDto;
 import ru.adel.locationtracker.public_interface.event.dto.UserLocationMessage;
 
@@ -23,6 +24,12 @@ public class UserLocationService {
 
     public List<UUID> getUsersToNotifyForCoordinates(Double longitude, Double latitude) {
         return userLocationDbService.findUsersToNotifyForCoordinates(longitude, latitude);
+    }
+
+    public void updateNotificationDistance(NotificationDistanceUpdateRequest notificationDistanceUpdateRequest) {
+        UserLocation user = userLocationDbService.getUserById(notificationDistanceUpdateRequest.userId());
+        user.setNotificationDistance(notificationDistanceUpdateRequest.distance());
+        userLocationDbService.save(user);
     }
 
     private UserLocationDto mapToDto(UserLocation userLocation) {

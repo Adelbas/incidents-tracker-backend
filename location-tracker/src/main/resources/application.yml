@@ -1,15 +1,10 @@
 server:
   port: ${SERVER_PORT}
-#  port: 8081
 spring:
   liquibase:
-#    enabled: false
       change-log: classpath:/db/db.changelog-master.yml
   datasource:
     driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/incidents_tracker_dev
-#    username: postgres
-#    password: postgres
     url: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}?currentSchema=${DB_SCHEMA}"
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
@@ -21,20 +16,20 @@ spring:
         format_sql: true
         jdbc:
           batch_size: 1000
-#        generate_statistics: true
-#        order_inserts: true
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
 kafka:
+  producer:
+    notification-message:
+      topic: "v1.notification-message"
+      partitions: 2
+      replicas: 2
   consumer:
     group-id: ${KAFKA_CONSUMER_GROUP_ID}
     user-location:
       topic: "v1.user-location"
     user-interaction:
       topic: "v1.user-interaction"
-  producer:
-    notification-message:
-      topic: "v1.notification-message"
 geospatial:
   property:
     srid: 4326

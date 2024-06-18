@@ -6,8 +6,8 @@ services:
     pull_policy: build
     depends_on:
       - db
-#      - kafka1
-#      - kafka2
+      - kafka1
+      - kafka2
     environment:
       - SERVER_PORT=8080
       - DB_HOST=db
@@ -16,7 +16,7 @@ services:
       - DB_DATABASE=incidents_api
       - DATASOURCE_USERNAME=postgres
       - DATASOURCE_PASSWORD=postgres
-      - KAFKA_BOOTSTRAP_SERVERS=kafka1:29092,kafka2:29092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka1:29092
       - KAFKA_CONSUMER_GROUP_ID=api-gateway
       - LOCATION_TRACKER_HOST=location-tracker
       - LOCATION_TRACKER_PORT=8081
@@ -40,7 +40,7 @@ services:
       - DB_DATABASE=incidents_location
       - DATASOURCE_USERNAME=postgres
       - DATASOURCE_PASSWORD=postgres
-      - KAFKA_BOOTSTRAP_SERVERS=kafka1:29092,kafka2:29092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka1:29092
       - KAFKA_CONSUMER_GROUP_ID=location-tracker
     ports:
       - '8081:8081'

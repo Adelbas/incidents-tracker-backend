@@ -20,8 +20,6 @@ public class TestControllerRest {
 
     @PostMapping("/notify/{userId}")
     public void createIncident(@PathVariable UUID userId, @RequestBody NotificationMessage notificationMessage) {
-        System.out.println(userId.toString());
-        System.out.println(notificationMessage.toString());
         notificationService.sendNotification(userId, notificationMessage);
     }
 }

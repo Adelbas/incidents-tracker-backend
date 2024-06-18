@@ -51,4 +51,7 @@ public class Incident {
 
     @Column(name = "views")
     private Integer views;
+
+    @Column(name = "image")
+    private byte[] image;
 }

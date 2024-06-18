@@ -46,7 +46,7 @@ public class EventProcessor {
         incidentUserInteractionDbService.createOrUpdateInteraction(incidentUserInteractionDto);
 
         if (incidentUserInteractionDto.status().equals(InteractionStatus.VIEWED)) {
-            incidentService.incrementViews(incidentUserInteractionDto.incidentId());
+            incidentService.incrementViews(incidentUserInteractionDto.incidentId(), incidentUserInteractionDto.incidentDate());
         }
     }
 }

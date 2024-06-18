@@ -22,8 +22,8 @@ public class IncidentService {
 
     private final IncidentDbService incidentDbService;
 
-    public IncidentGetResponse getIncident(Long id) {
-        Incident incident = incidentDbService.getById(id);
+    public IncidentGetResponse getIncident(Long id, LocalDate date) {
+        Incident incident = incidentDbService.getByIdAndDate(id, date);
         return mapToGetResponse(incident);
     }
 
@@ -34,7 +34,8 @@ public class IncidentService {
                         .title(incidentPostRequest.title())
                         .latitude(incidentPostRequest.latitude())
                         .longitude(incidentPostRequest.longitude())
-                        .views(0)
+                        .views(1)
+                        .image(incidentPostRequest.image())
                         .createdAt(LocalDateTime.now())
                         .createdAtDate(LocalDate.now())
                         .build()
@@ -54,8 +55,8 @@ public class IncidentService {
                 .toList();
     }
 
-    public void incrementViews(Long incidentId) {
-        Incident incident = incidentDbService.getById(incidentId);
+    public void incrementViews(Long incidentId, LocalDate incidentDate) {
+        Incident incident = incidentDbService.getByIdAndDate(incidentId, incidentDate);
         incident.setViews(incident.getViews() + 1);
         incidentDbService.save(incident);
     }
@@ -81,6 +82,7 @@ public class IncidentService {
                 .latitude(incident.getLatitude())
                 .longitude(incident.getLongitude())
                 .views(incident.getViews())
+                .image(incident.getImage())
                 .createdAt(incident.getCreatedAt())
                 .build();
     }

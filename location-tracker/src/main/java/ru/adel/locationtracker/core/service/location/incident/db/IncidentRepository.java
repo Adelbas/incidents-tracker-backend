@@ -8,10 +8,13 @@ import ru.adel.locationtracker.core.service.location.incident.db.entity.Incident
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface IncidentRepository extends JpaRepository<Incident, Long> {
+
+    Optional<Incident> findByCreatedAtDateAndId(LocalDate date, Long id);
 
     @Query(
             value = "SELECT i.id, i.title, i.longitude, i.latitude, i.created_at AS createdAt " +

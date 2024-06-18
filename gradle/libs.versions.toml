@@ -6,7 +6,6 @@ jwt = "0.11.5"
 
 [plugins]
 spring = { id = "org.springframework.boot", version.ref = "spring-boot" }
-open-api = { id = "org.openapi.generator", version = "7.3.0"}
 
 [libraries]
 #Spring Boot libraries
@@ -14,8 +13,6 @@ spring-web = { module = "org.springframework.boot:spring-boot-starter-web", vers
 spring-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 spring-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "spring-boot" }
 spring-websocket = { module = "org.springframework.boot:spring-boot-starter-websocket", version.ref = "spring-boot" }
-spring-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
-spring-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot" }
 spring-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf", version.ref = "spring-boot" }
 spring-kafka = { module = "org.springframework.kafka:spring-kafka", version = "3.0.16"}
 
@@ -30,12 +27,3 @@ jwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jwt"}
 jwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jwt"}
 jwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jwt"}
 hibernate-spatial = { module = "org.hibernate:hibernate-spatial", version = "6.5.2.Final"}
-
-#Open-api libraries
-open-api-springdoc = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version = "2.2.0"}
-open-api-generator = { module = "org.openapitools:openapi-generator-gradle-plugin", version = "7.3.0"}
-
-#Test libraries
-testcontainers-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "test-containers" }
-testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "test-containers" }
-assertj = { module = "org.assertj:assertj-core", version = "3.23.1" }

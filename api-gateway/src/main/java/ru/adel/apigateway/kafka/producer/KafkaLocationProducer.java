@@ -14,7 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class KafkaLocationProducer {
 
-//    private final KafkaTemplate<UUID, Object> kafkaTemplate;
+    private final KafkaTemplate<UUID, Object> kafkaTemplate;
 
     @Value("${kafka.producer.user-location.topic}")
     private String userLocationTopic;
@@ -22,11 +22,11 @@ public class KafkaLocationProducer {
     public void send(KafkaLocationMessage message) {
         log.info("Sending location message to kafka {}", message);
         try {
-//            kafkaTemplate.send(userLocationTopic, message.userId(), message)
-//                    .exceptionally(exception -> {
-//                        processSendingError(message, exception);
-//                        return null;
-//                    });
+            kafkaTemplate.send(userLocationTopic, message.userId(), message)
+                    .exceptionally(exception -> {
+                        processSendingError(message, exception);
+                        return null;
+                    });
         } catch (Exception e) {
             processSendingError(message, e);
         }

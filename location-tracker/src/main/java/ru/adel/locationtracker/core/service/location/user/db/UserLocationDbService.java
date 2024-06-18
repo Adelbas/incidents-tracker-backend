@@ -25,6 +25,15 @@ public class UserLocationDbService {
 
     private final GeoSpatialService geoSpatialService;
 
+    public UserLocation getUserById(UUID userId) {
+        return userLocationRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found with id " + userId));
+    }
+
+    public void save(UserLocation userLocation) {
+        userLocationRepository.save(userLocation);
+    }
+
     public UserLocation saveOrUpdate(UserLocationMessage userLocationMessage) {
         UserLocation userLocation = userLocationRepository.findById(userLocationMessage.userId())
                 .map(existingLocation -> updateLocationIfNecessary(existingLocation, userLocationMessage))
@@ -32,7 +41,6 @@ public class UserLocationDbService {
 
         return userLocationRepository.save(userLocation);
     }
-
 
     public List<UUID> findUsersToNotifyForCoordinates(Double longitude, Double latitude) {
         Point point = geoSpatialService.getPoint(longitude, latitude);

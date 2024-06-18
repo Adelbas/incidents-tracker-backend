@@ -47,6 +47,5 @@ public class LogoutService implements LogoutHandler {
             refreshTokenDbService.removeOldToken(user);
             SecurityContextHolder.clearContext();
         }
-        response.setHeader("Access-Control-Allow-Origin", "*");
     }
 }

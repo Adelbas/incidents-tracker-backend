@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/auth/**","/ws/**","/test/**").permitAll()
-                        .requestMatchers("/app/**","/api/incident/**", "/api/user/info").hasAuthority(USER_PERM.getPermission())
+                        .requestMatchers("/app/**","/api/incident/**", "/api/settings/**").hasAuthority(USER_PERM.getPermission())
                         .anyRequest()
                         .authenticated()
                 )

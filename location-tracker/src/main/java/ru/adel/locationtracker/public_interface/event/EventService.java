@@ -7,6 +7,7 @@ import ru.adel.locationtracker.public_interface.rest.IncidentPostRequest;
 import ru.adel.locationtracker.public_interface.event.dto.IncidentUserInteractionDto;
 import ru.adel.locationtracker.public_interface.event.dto.UserLocationMessage;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EventService {
@@ -15,7 +16,7 @@ public interface EventService {
 
     void createIncident(IncidentPostRequest incidentPostRequest);
 
-    IncidentGetResponse getIncident(Long id);
+    IncidentGetResponse getIncident(Long id, LocalDate date);
 
     void handleUserInteractionUpdate(IncidentUserInteractionDto incidentUserInteractionDto);
 

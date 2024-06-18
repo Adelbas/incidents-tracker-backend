@@ -6,5 +6,6 @@ import lombok.Builder;
 public record IncidentPostRequest(
         String title,
         Double latitude,
-        Double longitude
+        Double longitude,
+        byte[] image
 ) { }

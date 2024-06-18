@@ -10,8 +10,11 @@ public record IncidentGetResponse (
         Long id,
         String title,
         UUID postedUserId,
+        String postedUserFirstName,
+        String postedUserLastName,
         Double latitude,
         Double longitude,
+        byte[] image,
         Integer views,
         LocalDateTime createdAt
 ) { }

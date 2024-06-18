@@ -30,7 +30,6 @@ public class JwtChannelInterceptor implements ChannelInterceptor {
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        log.info("Headers: {}", accessor);
 
         if (StompCommand.CONNECT.equals(accessor.getCommand())) {
             String token = accessor.getFirstNativeHeader("Authorization");
@@ -49,7 +48,15 @@ public class JwtChannelInterceptor implements ChannelInterceptor {
                                     userDetails.getAuthorities()
                             );
                             SecurityContextHolder.getContext().setAuthentication(authToken);
-                            accessor.setUser(new StompPrincipal(((UserDetailsImpl) userDetails).getId()));
+                            StompPrincipal stompPrincipal = new StompPrincipal(((UserDetailsImpl) userDetails).getId());
+                            accessor.setUser(
+                                    new UsernamePasswordAuthenticationToken(
+                                            stompPrincipal,
+                                            token,
+                                            userDetails.getAuthorities()
+                                    )
+                            );
+                            accessor.setLeaveMutable(true);
                         }
                     }
                 } catch (ExpiredJwtException e) {

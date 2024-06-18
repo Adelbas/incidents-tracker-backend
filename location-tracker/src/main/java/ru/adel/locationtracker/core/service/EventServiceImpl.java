@@ -14,6 +14,7 @@ import ru.adel.locationtracker.public_interface.event.dto.IncidentUserInteractio
 import ru.adel.locationtracker.public_interface.event.dto.UserLocationDto;
 import ru.adel.locationtracker.public_interface.event.dto.UserLocationMessage;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -41,8 +42,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public IncidentGetResponse getIncident(Long id) {
-        return incidentService.getIncident(id);
+    public IncidentGetResponse getIncident(Long id, LocalDate date) {
+        return incidentService.getIncident(id, date);
     }
 
     @Override
