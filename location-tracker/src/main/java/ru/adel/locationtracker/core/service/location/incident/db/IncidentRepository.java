@@ -39,7 +39,7 @@ public interface IncidentRepository extends JpaRepository<Incident, Long> {
                     "FROM incidents i " +
                     "WHERE (created_at_date BETWEEN :startDate AND :endDate) " +
                     "   AND st_intersects(" +
-                    "               i.coordinates," +
+                    "               i.coordinates::geometry," +
                     "               ST_MakeEnvelope(:longitudeMin, :latitudeMin, :longitudeMax, :latitudeMax, :srid) " +
                     "      )",
             nativeQuery = true
