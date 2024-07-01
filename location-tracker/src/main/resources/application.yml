@@ -22,8 +22,8 @@ kafka:
   producer:
     notification-message:
       topic: "v1.notification-message"
-      partitions: 2
-      replicas: 2
+      partitions: 1
+      replicas: 1
   consumer:
     group-id: ${KAFKA_CONSUMER_GROUP_ID}
     user-location:

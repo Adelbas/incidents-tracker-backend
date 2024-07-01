@@ -7,7 +7,7 @@ services:
     depends_on:
       - db
       - kafka1
-      - kafka2
+#      - kafka2
     environment:
       - SERVER_PORT=8080
       - DB_HOST=db
@@ -16,7 +16,7 @@ services:
       - DB_DATABASE=incidents_api
       - DATASOURCE_USERNAME=postgres
       - DATASOURCE_PASSWORD=postgres
-      - KAFKA_BOOTSTRAP_SERVERS=kafka1:29092,kafka2:29092
+      - KAFKA_BOOTSTRAP_SERVERS=kafka1:29092
       - KAFKA_CONSUMER_GROUP_ID=api-gateway
       - LOCATION_TRACKER_HOST=location-tracker
       - LOCATION_TRACKER_PORT=8081
@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
       - kafka1
-      - kafka2
+#      - kafka2
     environment:
       - SERVER_PORT=8081
       - DB_HOST=db
@@ -102,34 +102,34 @@ services:
       timeout: 10s
       retries: 10
 
-  kafka2:
-    image: confluentinc/cp-kafka:7.3.1
-    hostname: kafka2
-    container_name: kafka2
-    depends_on:
-      zookeeper:
-        condition: service_healthy
-    ports:
-      - '9093:9093'
-      - '9102:9102'
-    environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:29092,PLAINTEXT_HOST://localhost:9093
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_JMX_PORT: 9102
-      KAFKA_JMX_HOSTNAME: localhost
-    healthcheck:
-      test: nc -z localhost 9093 || exit -1
-      start_period: 15s
-      interval: 5s
-      timeout: 10s
-      retries: 10
+#  kafka2:
+#    image: confluentinc/cp-kafka:7.3.1
+#    hostname: kafka2
+#    container_name: kafka2
+#    depends_on:
+#      zookeeper:
+#        condition: service_healthy
+#    ports:
+#      - '9093:9093'
+#      - '9102:9102'
+#    environment:
+#      KAFKA_BROKER_ID: 2
+#      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:29092,PLAINTEXT_HOST://localhost:9093
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+#      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+#      KAFKA_JMX_PORT: 9102
+#      KAFKA_JMX_HOSTNAME: localhost
+#    healthcheck:
+#      test: nc -z localhost 9093 || exit -1
+#      start_period: 15s
+#      interval: 5s
+#      timeout: 10s
+#      retries: 10
 
 volumes:
   db:

@@ -14,12 +14,12 @@ kafka:
   producer:
     user-location:
       topic: "v1.user-location"
-      partitions: 2
-      replicas: 2
+      partitions: 1
+      replicas: 1
     user-interaction:
       topic: "v1.user-interaction"
-      partitions: 2
-      replicas: 2
+      partitions: 1
+      replicas: 1
   consumer:
     group-id: ${KAFKA_CONSUMER_GROUP_ID}
     notification-message:
