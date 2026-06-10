@@ -37,3 +37,30 @@ geospatial:
     max-notification-distance: 30000
 jdbc:
   batch-size: 1000
+# External embedding service (runs the e5 model in its own container)
+embedding:
+  service:
+    url: ${EMBEDDING_SERVICE_URL:http://localhost:8000}
+    timeout-ms: 5000
+    # E5 is asymmetric: query prefix for the event text, passage prefix for category descriptions.
+    query-prefix: "query: "
+    passage-prefix: "passage: "
+# Categorization pipeline tuning.
+# A match is accepted only if best score >= threshold AND (best - second) >= margin; otherwise -> OpenAI/OTHER.
+categorization:
+  threshold: 0.80
+  margin: 0.03
+  fallback-enabled: true
+  default-category-code: "OTHER"
+# External OpenAI fallback (used only for low-confidence categorization).
+# When the api-key is empty the fallback is silently skipped.
+openai:
+  enabled: true
+  api-key: ${OPENAI_API_KEY:}
+  base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
+  model: ${OPENAI_MODEL:gpt-4o-mini}
+  timeout-ms: 15000
+# Spatio-temporal clustering defaults (reserved for iteration 2)
+cluster:
+  radius-meters: 100
+  window-minutes: 10

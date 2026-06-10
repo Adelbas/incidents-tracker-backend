@@ -1,6 +1,7 @@
 [versions]
 spring-boot = "3.1.4"
 jwt = "0.11.5"
+springdoc = "2.2.0"
 
 [plugins]
 spring = { id = "org.springframework.boot", version.ref = "spring-boot" }
@@ -23,4 +24,7 @@ jwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jwt"}
 jwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jwt"}
 jwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jwt"}
 hibernate-spatial = { module = "org.hibernate:hibernate-spatial", version = "6.5.2.Final"}
+
+#OpenAPI / Swagger UI for admin endpoints
+springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 

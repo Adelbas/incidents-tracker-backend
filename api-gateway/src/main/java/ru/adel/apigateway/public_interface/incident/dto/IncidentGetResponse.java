@@ -9,6 +9,10 @@ import java.util.UUID;
 public record IncidentGetResponse (
         Long id,
         String title,
+        String description,
+        String categoryCode,
+        String categoryName,
+        String dangerLevel,
         UUID postedUserId,
         String postedUserFirstName,
         String postedUserLastName,

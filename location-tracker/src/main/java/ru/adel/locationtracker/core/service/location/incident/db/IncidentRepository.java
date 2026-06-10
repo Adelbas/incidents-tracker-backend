@@ -17,8 +17,10 @@ public interface IncidentRepository extends JpaRepository<Incident, Long> {
     Optional<Incident> findByCreatedAtDateAndId(LocalDate date, Long id);
 
     @Query(
-            value = "SELECT i.id, i.title, i.longitude, i.latitude, i.created_at AS createdAt " +
+            value = "SELECT i.id, i.title, i.longitude, i.latitude, i.created_at AS createdAt, " +
+                    "       c.code AS categoryCode, c.name AS categoryName, i.danger_level AS dangerLevel " +
                     "FROM incidents i " +
+                    "   LEFT JOIN category c ON c.id = i.category_id " +
                     "WHERE (created_at_date = :today OR  created_at_date = :yesterday) " +
                     "   AND st_dwithin(" +
                     "               i.coordinates," +
@@ -35,8 +37,10 @@ public interface IncidentRepository extends JpaRepository<Incident, Long> {
     List<IncidentDto> findAllIncidentsNearbyUserCoordinateInDistance(UUID userId, Point point, Integer distance, LocalDate today, LocalDate yesterday);
 
     @Query(
-            value = "SELECT i.id, i.title, i.longitude, i.latitude, i.created_at AS createdAt " +
+            value = "SELECT i.id, i.title, i.longitude, i.latitude, i.created_at AS createdAt, " +
+                    "       c.code AS categoryCode, c.name AS categoryName, i.danger_level AS dangerLevel " +
                     "FROM incidents i " +
+                    "   LEFT JOIN category c ON c.id = i.category_id " +
                     "WHERE (created_at_date BETWEEN :startDate AND :endDate) " +
                     "   AND st_intersects(" +
                     "               i.coordinates::geometry," +

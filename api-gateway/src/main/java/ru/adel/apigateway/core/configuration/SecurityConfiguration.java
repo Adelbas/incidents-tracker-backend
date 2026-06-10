@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import ru.adel.apigateway.core.service.authentication.security.JwtAuthenticationFilter;
 
+import static ru.adel.apigateway.core.service.authentication.db.user.entity.enums.Permission.ADMIN_PERM;
 import static ru.adel.apigateway.core.service.authentication.db.user.entity.enums.Permission.USER_PERM;
 
 @Configuration
@@ -43,7 +44,9 @@ public class SecurityConfiguration {
                 .cors(c -> c.disable())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/auth/**","/ws/**","/test/**").permitAll()
+                        .requestMatchers("/api/auth/**","/ws/**","/test/**",
+                                "/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll()
+                        .requestMatchers("/api/admin/**").hasAuthority(ADMIN_PERM.getPermission())
                         .requestMatchers("/app/**","/api/incident/**", "/api/settings/**").hasAuthority(USER_PERM.getPermission())
                         .anyRequest()
                         .authenticated()

@@ -2,6 +2,8 @@ package ru.adel.locationtracker.core.service.location.incident.db.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
+import ru.adel.locationtracker.public_interface.analysis.DangerLevel;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,6 +36,16 @@ public class Incident {
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "description", columnDefinition = "text")
+    private String description;
+
+    @Column(name = "category_id")
+    private Long categoryId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "danger_level")
+    private DangerLevel dangerLevel;
 
     @Column(name = "latitude", nullable = false)
     private Double latitude;

@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.adel.apigateway.core.service.authentication.db.user.UserDbService;
+import ru.adel.apigateway.core.service.authentication.db.user.entity.User;
+import ru.adel.apigateway.core.service.authentication.db.user.entity.enums.Role;
 import ru.adel.apigateway.public_interface.authentication.AuthenticationService;
 import ru.adel.apigateway.public_interface.authentication.dto.AuthenticationRequestDto;
 import ru.adel.apigateway.public_interface.authentication.dto.RegistrationRequestDto;
@@ -15,6 +17,8 @@ import ru.adel.apigateway.public_interface.authentication.dto.RegistrationReques
 public class UserInitializer {
 
     private static final String DEFAULT_EMAIL = "user@mail.ru";
+
+    private static final String DEFAULT_ADMIN_EMAIL = "admin@mail.ru";
 
     private final AuthenticationService authenticationService;
 
@@ -32,6 +36,8 @@ public class UserInitializer {
                             .build()
             );
         }
+
+        initAdmin();
 
         if (!clientWithEmailExists("adel@mail.ru")) {
             authenticationService.register(
@@ -52,6 +58,24 @@ public class UserInitializer {
         ).accessToken();
 
         log.info("Jwt token: {}", jwt);
+    }
+
+    private void initAdmin() {
+        if (clientWithEmailExists(DEFAULT_ADMIN_EMAIL)) {
+            return;
+        }
+        authenticationService.register(
+                RegistrationRequestDto.builder()
+                        .firstname("admin")
+                        .lastname("admin")
+                        .email(DEFAULT_ADMIN_EMAIL)
+                        .password("admin")
+                        .build()
+        );
+        User admin = userDbService.getByEmail(DEFAULT_ADMIN_EMAIL);
+        admin.setRole(Role.ADMIN);
+        userDbService.save(admin);
+        log.info("Default admin user created: {}", DEFAULT_ADMIN_EMAIL);
     }
 
     private boolean clientWithEmailExists(String email) {

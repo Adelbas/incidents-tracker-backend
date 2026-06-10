@@ -8,6 +8,7 @@ import java.util.UUID;
 public record IncidentRestPostRequest(
         UUID postedUserId,
         String title,
+        String description,
         Double latitude,
         Double longitude,
         byte[] image

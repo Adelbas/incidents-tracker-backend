@@ -6,6 +6,10 @@ import java.util.UUID;
 public record IncidentResponse(
         Long id,
         String title,
+        String description,
+        String categoryCode,
+        String categoryName,
+        String dangerLevel,
         UUID postedUserId,
         Double latitude,
         Double longitude,

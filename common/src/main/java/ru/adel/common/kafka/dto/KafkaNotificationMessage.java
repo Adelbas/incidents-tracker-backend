@@ -10,6 +10,9 @@ public record KafkaNotificationMessage(
         UUID userId,
         Long incidentId,
         String title,
+        String categoryCode,
+        String categoryName,
+        String dangerLevel,
         Double latitude,
         Double longitude,
         LocalDateTime timestamp

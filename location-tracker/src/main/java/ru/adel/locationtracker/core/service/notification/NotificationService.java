@@ -8,7 +8,6 @@ import ru.adel.locationtracker.core.service.notification.db.IncidentUserInteract
 import ru.adel.locationtracker.kafka.producer.KafkaNotificationProducer;
 import ru.adel.locationtracker.public_interface.event.dto.IncidentNotificationDto;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,16 +22,7 @@ public class NotificationService {
 
     public void notifyUser(UUID userId, List<IncidentNotificationDto> incidents) {
         for (IncidentNotificationDto incident : incidents) {
-            kafkaNotificationProducer.send(
-                    KafkaNotificationMessage.builder()
-                            .userId(userId)
-                            .incidentId(incident.id())
-                            .title(incident.title())
-                            .longitude(incident.longitude())
-                            .latitude(incident.latitude())
-                            .timestamp(incident.createdAt())
-                            .build()
-            );
+            kafkaNotificationProducer.send(toKafkaMessage(userId, incident));
         }
         incidentUserInteractionDbService.updateToNotified(
                 userId,
@@ -42,19 +32,26 @@ public class NotificationService {
 
     public void notifyUsers(List<UUID> users, IncidentNotificationDto incident) {
         for (UUID userId : users) {
-            kafkaNotificationProducer.send(KafkaNotificationMessage.builder()
-                    .userId(userId)
-                    .incidentId(incident.id())
-                    .title(incident.title())
-                    .longitude(incident.longitude())
-                    .latitude(incident.latitude())
-                    .timestamp(incident.createdAt())
-                    .build());
+            kafkaNotificationProducer.send(toKafkaMessage(userId, incident));
         }
         incidentUserInteractionDbService.updateToNotified(
                 users,
                 incident.id(),
                 incident.createdAt()
         );
+    }
+
+    private KafkaNotificationMessage toKafkaMessage(UUID userId, IncidentNotificationDto incident) {
+        return KafkaNotificationMessage.builder()
+                .userId(userId)
+                .incidentId(incident.id())
+                .title(incident.title())
+                .categoryCode(incident.categoryCode())
+                .categoryName(incident.categoryName())
+                .dangerLevel(incident.dangerLevel() == null ? null : incident.dangerLevel().name())
+                .longitude(incident.longitude())
+                .latitude(incident.latitude())
+                .timestamp(incident.createdAt())
+                .build();
     }
 }

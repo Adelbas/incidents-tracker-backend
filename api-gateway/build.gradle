@@ -16,4 +16,6 @@ dependencies {
     implementation libs.jwt.jackson
 
     implementation libs.spring.thymeleaf
+
+    implementation libs.springdoc.openapi
 }

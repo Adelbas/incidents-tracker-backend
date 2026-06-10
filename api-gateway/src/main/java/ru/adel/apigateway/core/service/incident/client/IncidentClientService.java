@@ -27,7 +27,9 @@ public class IncidentClientService {
 
     public IncidentResponse getIncident(Long id, LocalDate date) {
         log.info("Sending get incident with id <{}> date <{}> request", id, date);
-        return incidentRestClient.getIncident(id, date);
+        var r = incidentRestClient.getIncident(id, date);
+        System.out.println(r);
+        return r;
     }
 
     @Async
@@ -35,6 +37,7 @@ public class IncidentClientService {
         IncidentRestPostRequest request = IncidentRestPostRequest.builder()
                 .postedUserId(userId)
                 .title(incidentPostRequest.title())
+                .description(incidentPostRequest.description())
                 .latitude(incidentPostRequest.latitude())
                 .longitude(incidentPostRequest.longitude())
                 .image(incidentPostRequest.image())

@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5434/incidents_location?currentSchema=public"
+    username: postgres
+    password: postgres
+  kafka:
+    bootstrap-servers: localhost:9092
+
+kafka:
+  consumer:
+    group-id: location-tracker
+
+embedding:
+  model:
+    classpath-dir: "models/e5-small"
+    path: ""
+
+openai:
+  enabled: true
+  api-key: "sk-dUK4OG-m6HK6xvtuAfi1iQ"
+  base-url: "https://api.artemox.com/v1"
